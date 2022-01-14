@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: dev-sandbox-console-plugin
-          image: quay.io/christianvogt/dev-sandbox-console-plugin:latest
+          image: quay.io/redhat-developer/dev-sandbox-console-plugin:latest
           ports:
             - containerPort: 9001
               protocol: TCP
