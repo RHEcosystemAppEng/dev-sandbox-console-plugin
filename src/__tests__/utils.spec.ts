@@ -14,6 +14,9 @@ const createUser = (email: string): K8sResourceCommon => ({
 
 describe('utils', () => {
   it('should identify internal users', () => {
+    expect(isInternalUser(null)).toBe(false);
+    expect(isInternalUser(undefined)).toBe(false);
+    expect(isInternalUser(createUser('notanemail'))).toBe(false);
     expect(isInternalUser(createUser('test@redhat.com'))).toBe(true);
     expect(isInternalUser(createUser('test@ibm.com'))).toBe(true);
     expect(isInternalUser(createUser('test@RedHat.com'))).toBe(true);
