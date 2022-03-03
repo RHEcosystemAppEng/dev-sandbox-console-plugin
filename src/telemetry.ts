@@ -1,3 +1,5 @@
+import { isInternalUser } from './utils';
+
 const segmentKey: string = (window as any).SEGMENT_KEY || '%SEGMENT_KEY_PLACEHOLDER%';
 
 if (!segmentKey) {
@@ -92,7 +94,12 @@ export const eventListener = async (eventType: string, properties?: any) => {
             const anonymousId = anonymousIdArray
               .map((b) => b.toString(16).padStart(2, '0'))
               .join('');
-            (window as any).analytics.identify(anonymousId, otherProperties, anonymousIP);
+            const internal = isInternalUser(user);
+            (window as any).analytics.identify(
+              anonymousId,
+              { ...otherProperties, internal },
+              anonymousIP,
+            );
           } else {
             console.error(
               'dev-sandbox-console-plugin: unable to identify as no user name was provided',
